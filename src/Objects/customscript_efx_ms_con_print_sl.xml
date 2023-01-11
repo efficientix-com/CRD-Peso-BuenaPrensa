@@ -1,0 +1,111 @@
+<suitelet scriptid="customscript_efx_ms_con_print_sl">
+  <description></description>
+  <isinactive>F</isinactive>
+  <name>MS - Print Label SL</name>
+  <notifyadmins>F</notifyadmins>
+  <notifyemails></notifyemails>
+  <notifyowner>T</notifyowner>
+  <notifyuser>F</notifyuser>
+  <scriptfile>[/SuiteScripts/Suscripciones BP/efx_ms_con_print_sl.js]</scriptfile>
+  <scriptcustomfields>
+    <scriptcustomfield scriptid="custscript_efx_ms_template_id">
+      <accesslevel>2</accesslevel>
+      <applyformatting>F</applyformatting>
+      <checkspelling>F</checkspelling>
+      <defaultchecked>F</defaultchecked>
+      <defaultselection></defaultselection>
+      <defaultvalue></defaultvalue>
+      <description></description>
+      <displayheight></displayheight>
+      <displaytype>NORMAL</displaytype>
+      <displaywidth></displaywidth>
+      <dynamicdefault></dynamicdefault>
+      <fieldtype>SELECT</fieldtype>
+      <help></help>
+      <isformula>F</isformula>
+      <ismandatory>T</ismandatory>
+      <label>Template ID</label>
+      <linktext></linktext>
+      <maxlength></maxlength>
+      <maxvalue></maxvalue>
+      <minvalue></minvalue>
+      <onparentdelete>NO_ACTION</onparentdelete>
+      <searchlevel>2</searchlevel>
+      <selectrecordtype>-387</selectrecordtype>
+      <setting></setting>
+      <storevalue>T</storevalue>
+    </scriptcustomfield>
+    <scriptcustomfield scriptid="custscript_efx_ms_folder">
+      <accesslevel>2</accesslevel>
+      <applyformatting>F</applyformatting>
+      <checkspelling>F</checkspelling>
+      <defaultchecked>F</defaultchecked>
+      <defaultselection></defaultselection>
+      <defaultvalue></defaultvalue>
+      <description>Indica el folder donde se almacenara el template de etiquetas</description>
+      <displayheight></displayheight>
+      <displaytype>NORMAL</displaytype>
+      <displaywidth></displaywidth>
+      <dynamicdefault></dynamicdefault>
+      <fieldtype>TEXT</fieldtype>
+      <help>Indica el folder donde se almacenara el template de etiquetas</help>
+      <isformula>F</isformula>
+      <ismandatory>F</ismandatory>
+      <label>Folder to save</label>
+      <linktext></linktext>
+      <maxlength></maxlength>
+      <maxvalue></maxvalue>
+      <minvalue></minvalue>
+      <onparentdelete></onparentdelete>
+      <searchlevel>2</searchlevel>
+      <selectrecordtype></selectrecordtype>
+      <setting></setting>
+      <storevalue>T</storevalue>
+    </scriptcustomfield>
+    <scriptcustomfield scriptid="custscript_efx_ms_logo">
+      <accesslevel>2</accesslevel>
+      <applyformatting>F</applyformatting>
+      <checkspelling>F</checkspelling>
+      <defaultchecked>F</defaultchecked>
+      <defaultselection></defaultselection>
+      <defaultvalue></defaultvalue>
+      <description>Indica el logo de la empresa</description>
+      <displayheight></displayheight>
+      <displaytype>NORMAL</displaytype>
+      <displaywidth></displaywidth>
+      <dynamicdefault></dynamicdefault>
+      <fieldtype>URL</fieldtype>
+      <help>Indica el logo de la empresa</help>
+      <isformula>F</isformula>
+      <ismandatory>F</ismandatory>
+      <label>Logo</label>
+      <linktext></linktext>
+      <maxlength></maxlength>
+      <maxvalue></maxvalue>
+      <minvalue></minvalue>
+      <onparentdelete></onparentdelete>
+      <searchlevel>2</searchlevel>
+      <selectrecordtype></selectrecordtype>
+      <setting></setting>
+      <storevalue>T</storevalue>
+    </scriptcustomfield>
+  </scriptcustomfields>
+  <scriptdeployments>
+    <scriptdeployment scriptid="customdeploy_efx_ms_con_print_sl">
+      <allemployees>T</allemployees>
+      <allpartners>F</allpartners>
+      <allroles>T</allroles>
+      <audslctrole></audslctrole>
+      <custscript_efx_ms_folder></custscript_efx_ms_folder>
+      <custscript_efx_ms_logo></custscript_efx_ms_logo>
+      <custscript_efx_ms_template_id>[scriptid=custtmpl_efx_ms_print_lab]</custscript_efx_ms_template_id>
+      <eventtype></eventtype>
+      <isdeployed>T</isdeployed>
+      <isonline>F</isonline>
+      <loglevel>AUDIT</loglevel>
+      <runasrole>ADMINISTRATOR</runasrole>
+      <status>RELEASED</status>
+      <title>MS - Print Label SL</title>
+    </scriptdeployment>
+  </scriptdeployments>
+</suitelet>

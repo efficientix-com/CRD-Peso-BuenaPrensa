@@ -1,0 +1,25 @@
+<suitelet scriptid="customscript_efx_ms_del_rol_sl">
+  <description></description>
+  <isinactive>F</isinactive>
+  <name>MS - Delete Rol SL</name>
+  <notifyadmins>F</notifyadmins>
+  <notifyemails></notifyemails>
+  <notifyowner>T</notifyowner>
+  <notifyuser>F</notifyuser>
+  <scriptfile>[/SuiteScripts/Suscripciones BP/efx_ms_del_rol_sl.js]</scriptfile>
+  <scriptdeployments>
+    <scriptdeployment scriptid="customdeploy_efx_ms_del_rol_sl">
+      <allemployees>T</allemployees>
+      <allpartners>F</allpartners>
+      <allroles>T</allroles>
+      <audslctrole></audslctrole>
+      <eventtype></eventtype>
+      <isdeployed>T</isdeployed>
+      <isonline>F</isonline>
+      <loglevel>AUDIT</loglevel>
+      <runasrole>ADMINISTRATOR</runasrole>
+      <status>RELEASED</status>
+      <title>MS - Delete Rol SL</title>
+    </scriptdeployment>
+  </scriptdeployments>
+</suitelet>

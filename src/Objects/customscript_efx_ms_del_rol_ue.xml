@@ -1,0 +1,26 @@
+<usereventscript scriptid="customscript_efx_ms_del_rol_ue">
+  <description></description>
+  <isinactive>F</isinactive>
+  <name>MS - Delete Rol UE</name>
+  <notifyadmins>F</notifyadmins>
+  <notifyemails></notifyemails>
+  <notifyowner>T</notifyowner>
+  <notifyuser>F</notifyuser>
+  <scriptfile>[/SuiteScripts/Suscripciones BP/efx_ms_del_rol_ue.js]</scriptfile>
+  <scriptdeployments>
+    <scriptdeployment scriptid="customdeploy_efx_ms_del_rol_ue">
+      <allemployees>T</allemployees>
+      <alllocalizationcontexts>T</alllocalizationcontexts>
+      <allpartners>F</allpartners>
+      <allroles>T</allroles>
+      <audslctrole></audslctrole>
+      <eventtype></eventtype>
+      <executioncontext>ACTION|ADVANCEDREVREC|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CONSOLRATEADJUSTOR|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|DEBUGGER|EMAILCAPTURE|MAPREDUCE|OCRPLUGIN|OTHER|PAYMENTGATEWAY|PAYMENTPOSTBACK|PLATFORMEXTENSION|PORTLET|PROMOTIONS|RECORDACTION|RESTLET|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WEBSERVICES|WORKFLOW</executioncontext>
+      <isdeployed>T</isdeployed>
+      <loglevel>AUDIT</loglevel>
+      <recordtype>[scriptid=customrecord_efx_ms_rol_env]</recordtype>
+      <runasrole>ADMINISTRATOR</runasrole>
+      <status>RELEASED</status>
+    </scriptdeployment>
+  </scriptdeployments>
+</usereventscript>
