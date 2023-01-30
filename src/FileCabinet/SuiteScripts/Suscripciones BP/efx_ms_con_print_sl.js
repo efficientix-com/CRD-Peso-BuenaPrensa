@@ -683,6 +683,7 @@ define([
                             name: 'formulatext',
                             formula: "TO_CHAR({created},'DDMMHHMI')",
                         },
+                        { name: "custrecord_efx_ms_re_year_apply", join: "custrecord_efx_ms_dre_re" }
                     ],
                 })
                 log.audit({
@@ -731,7 +732,9 @@ define([
                             value: result.getValue({ name: 'created' }),
                             type: format.Type.DATE,
                         })
-                        var d = new Date(date)
+                        var yearApplyRol = result.getValue({ name: "custrecord_efx_ms_re_year_apply", join: "custrecord_efx_ms_dre_re" })
+                        var dateForRol = '01/'+((period<10)?'0'+period:period)+'/'+yearApplyRol;
+                        var d = new Date(dateForRol)
                         d.setMonth(month - 1)
                         d.setDate(1)
                         resultData.push({
@@ -1037,7 +1040,7 @@ define([
                                 var peso = (parseFloat(custrecord_efx_ms_con_qty) * parseFloat(custrecord_efx_ms_con_w));
                                 if (weight.length !== 0) {
                                     for (var i = 0; i < listaSello.length; i++) {
-                                        if (peso >= parseFloat(listaSello[i].pesoMin) && peso <= parseFloat(listaSello[i].pesoMax) && (listaSello[i].articulo).indexOf(itemNameSSI) !== -1 && (custrecord_efx_ms_con_postmark.length > 0)) {
+                                        if (peso >= parseFloat(listaSello[i].pesoMin) && peso <= parseFloat(listaSello[i].pesoMax) && (listaSello[i].articulo).indexOf(itemNameSSI) !== -1 && (custrecord_efx_ms_con_postmark === listaSello[i].selloPostal)) {
                                             custrecord_efx_ms_con_sm = listaSello[i].methodSent;
                                             paqueteria = custrecord_efx_ms_con_sm.replace('SEPOMEX ', '');
                                             custrecord_efx_ms_con_postmark = listaSello[i].selloPostal;
@@ -1227,7 +1230,7 @@ define([
                             var peso = (parseFloat(custrecord_efx_ms_con_qty) * parseFloat(custrecord_efx_ms_con_w));
                             if (weight.length !== 0) {
                                 for (var i = 0; i < listaSello.length; i++) {
-                                    if (peso >= parseFloat(listaSello[i].pesoMin) && peso <= parseFloat(listaSello[i].pesoMax) && (listaSello[i].articulo).indexOf(itemNameSSI) !== -1 && (custrecord_efx_ms_con_postmark.length > 0)) {
+                                    if (peso >= parseFloat(listaSello[i].pesoMin) && peso <= parseFloat(listaSello[i].pesoMax) && (listaSello[i].articulo).indexOf(itemNameSSI) !== -1 && (custrecord_efx_ms_con_postmark === listaSello[i].selloPostal)) {
                                         custrecord_efx_ms_con_sm = listaSello[i].methodSent;
                                         paqueteria = custrecord_efx_ms_con_sm.replace('SEPOMEX ', '');
                                         custrecord_efx_ms_con_postmark = listaSello[i].selloPostal;
