@@ -86,196 +86,9 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                      */
                     var newArraySort = setSortData(dataArray);
                     log.audit({ title: 'Sort', details: 'Finish sort data' });
-                    // response.writeLine({output: JSON.stringify(detailData)});
-                    /*for (var j = 0; j < detailData.length; j++) {
-                        dataArray.push(detailData[j]);
-                    }*/
-                    //response.write({output: JSON.stringify(newArraySort)})
-                    /*switch (params.actionsl) {
-                        case 'e1':
-                            // log.audit('data array excel rol', dataArray);
-                            var dataCSV = [];
-                            var cantidad_alt = 0;
-                            var peso_alt = 0;
-                            var periodo = null;
-                            for (var i = 0; i < dataArray.length; i++) {
-                                if (dataArray[i].custrecord_efx_ms_con_period && dataArray[i].custrecord_efx_ms_con_period === "4" || dataArray[i].custrecord_efx_ms_con_period === 4 ) {
-                                    cantidad_alt += dataArray[i].custrecord_efx_ms_con_qty * 1;
-                                    peso_alt = dataArray[i].custrecord_efx_ms_con_w / dataArray[i].custrecord_efx_ms_con_qty;
-                                    periodo = dataArray[i].custrecord_efx_ms_con_period;
-                                }
-                            }
-                            if (periodo && (periodo === "4" || periodo === 4)) {
-                                var contractDetail = {};
-                                for (var i = 0; i < dataArray.length; i++) {
-                                    if (!contractDetail.hasOwnProperty(dataArray[i].custrecord_efx_ms_con)) {
-                                        contractDetail[dataArray[i].custrecord_efx_ms_con] = {
-                                            producto: "",
-                                            peso: "",
-                                            peso_total: ""
-                                        };
-                                        contractDetail[dataArray[i].custrecord_efx_ms_con].publicacion = dataArray[i].dateRol;
-                                        if (contractDetail[dataArray[i].custrecord_efx_ms_con].producto === "") {
-                                            contractDetail[dataArray[i].custrecord_efx_ms_con].producto = dataArray[i].custrecord_efx_ms_con_ssi;
-                                        }
-                                        if (contractDetail[dataArray[i].custrecord_efx_ms_con].peso === "") {
-                                            contractDetail[dataArray[i].custrecord_efx_ms_con].peso = dataArray[i].custrecord_efx_ms_con_w_cust;
-                                        }
-                                        if (contractDetail[dataArray[i].custrecord_efx_ms_con].peso_total === "") {
-                                            contractDetail[dataArray[i].custrecord_efx_ms_con].peso_total = (dataArray[i].custrecord_efx_ms_con_qty * dataArray[i].custrecord_efx_ms_con_w_cust);
-                                        }
-                                        contractDetail[dataArray[i].custrecord_efx_ms_con].cantidad = dataArray[i].custrecord_efx_ms_con_qty;
-                                        contractDetail[dataArray[i].custrecord_efx_ms_con].tercero = (dataArray[i].custrecord_efx_ms_con_contact) ? 'Si' : 'No';
-                                        contractDetail[dataArray[i].custrecord_efx_ms_con].usuario = dataArray[i].custrecord_efx_ms_con_ship_cus;
-                                        contractDetail[dataArray[i].custrecord_efx_ms_con].nombre = dataArray[i].formula_nombre;
-                                        contractDetail[dataArray[i].custrecord_efx_ms_con].contacto = dataArray[i].custrecord_efx_ms_con_ship_cont;
-                                        contractDetail[dataArray[i].custrecord_efx_ms_con].direccion = dataArray[i].custrecord_efx_ms_con_addr;
-                                        contractDetail[dataArray[i].custrecord_efx_ms_con].compania = dataArray[i].custrecord_efx_ms_con_sm;
-                                        contractDetail[dataArray[i].custrecord_efx_ms_con].activo = (dataArray[i].custrecord_efx_ms_con_act) ? 'Si' : 'No';
-                                        contractDetail[dataArray[i].custrecord_efx_ms_con].fecha_creacion = dataArray[i].dateRol;
-                                        contractDetail[dataArray[i].custrecord_efx_ms_con].creado_por = dataArray[i].entityid;
-                                        contractDetail[dataArray[i].custrecord_efx_ms_con].fecha_actualizado = dataArray[i].lastmodified;
-                                    }
-                                }
-                                var contractDetailKey = Object.keys(contractDetail);
-                                for (var key in contractDetailKey) {
-                                    dataCSV.push({
-                                        publicacion: contractDetail[contractDetailKey[key]].publicacion,
-                                        producto: contractDetail[contractDetailKey[key]].producto,
-                                        cantidad: contractDetail[contractDetailKey[key]].cantidad,
-                                        peso: contractDetail[contractDetailKey[key]].peso,
-                                        peso_total: contractDetail[contractDetailKey[key]].peso_total,
-                                        tercero: contractDetail[contractDetailKey[key]].tercero,
-                                        usuario: contractDetail[contractDetailKey[key]].usuario,
-                                        nombre: contractDetail[contractDetailKey[key]].nombre,
-                                        contacto: contractDetail[contractDetailKey[key]].contacto,
-                                        direccion: contractDetail[contractDetailKey[key]].direccion,
-                                        compania: contractDetail[contractDetailKey[key]].compania,
-                                        activo: contractDetail[contractDetailKey[key]].activo,
-                                        fecha_creacion: contractDetail[contractDetailKey[key]].fecha_creacion,
-                                        creado_por: contractDetail[contractDetailKey[key]].creado_por,
-                                        fecha_actualizado: contractDetail[contractDetailKey[key]].fecha_actualizado
-                                    })
-                                }
-                            } else {
-                                for (var i = 0; i < dataArray.length; i++) {
-                                    dataCSV.push({
-                                        publicacion: dataArray[i].dateRol,
-                                        producto: dataArray[i].custrecord_efx_ms_con_ssi,
-                                        cantidad: dataArray[i].custrecord_efx_ms_con_qty,
-                                        peso: dataArray[i].custrecord_efx_ms_con_ssi_w,
-                                        peso_total: (dataArray[i].custrecord_efx_ms_con_ssi_w * dataArray[i].custrecord_efx_ms_con_qty),
-                                        tercero: (dataArray[i].custrecord_efx_ms_con_contact) ? 'Si' : 'No',
-                                        usuario: dataArray[i].custrecord_efx_ms_con_ship_cus,
-                                        nombre: dataArray[i].formula_nombre,
-                                        contacto: dataArray[i].custrecord_efx_ms_con_ship_cont,
-                                        direccion: dataArray[i].custrecord_efx_ms_con_addr,
-                                        compania: dataArray[i].custrecord_efx_ms_con_sm,
-                                        activo: (dataArray[i].custrecord_efx_ms_con_act) ? 'Si' : 'No',
-                                        fecha_creacion: dataArray[i].dateRol,
-                                        creado_por: dataArray[i].entityid,
-                                        fecha_actualizado: dataArray[i].lastmodified
-                                    });
-                                }
-                            }
-                            var csvFile = generateExcel1(JSON.stringify(dataCSV));
-                            if (csvFile) {
-                                var urlFile = getFileURL(csvFile);
-                                if (urlFile) {
-                                    redirect.redirect({
-                                        url: urlFile
-                                    });
-                                }
-                            }
-                            break;
-                        case 'e3':
-                            // log.audit('data array excel consolidado', dataArray);
-                            var dataCSV = [];
-                            var cantidad_alt = 0;
-                            var peso_alt = 0;
-                            var periodo = null;
-                            for (var i = 0; i < dataArray.length; i++) {
-                                if (dataArray[i].custrecord_efx_ms_con_period === 4 || dataArray[i].custrecord_efx_ms_con_period === "4") {
-                                    cantidad_alt += dataArray[i].custrecord_efx_ms_con_qty;
-                                    peso_alt = dataArray[i].custrecord_efx_ms_con_w / dataArray[i].custrecord_efx_ms_con_qty;
-                                    periodo = dataArray[i].custrecord_efx_ms_con_period;
-                                }
-                                if (periodo && (periodo === "4" || periodo === 4)) {
-                                    var contractDetail = {};
-                                    var altI = 1;
-                                    for (var i = 0; i < dataArray.length; i++) {
-                                        if (!contractDetail.hasOwnProperty(dataArray[i].custrecord_efx_ms_con)) {
-                                            contractDetail[dataArray[i].custrecord_efx_ms_con] = {
-                                                producto: "",
-                                                peso: "",
-                                                peso_total: ""
-                                            };
-                                            contractDetail[dataArray[i].custrecord_efx_ms_con].organizacion = 'CAT';
-                                            contractDetail[dataArray[i].custrecord_efx_ms_con].no_documento = dataArray[i].prefix + '-' + altI;
-                                            contractDetail[dataArray[i].custrecord_efx_ms_con].tercero = (dataArray[i].custrecord_efx_ms_con_contact) ? 'Si' : 'No';
-                                            contractDetail[dataArray[i].custrecord_efx_ms_con].usuario = dataArray[i].custrecord_efx_ms_con_ship_cus;
-                                            contractDetail[dataArray[i].custrecord_efx_ms_con].nombre = dataArray[i].formula_nombre;
-                                            contractDetail[dataArray[i].custrecord_efx_ms_con].contacto = dataArray[i].custrecord_efx_ms_con_ship_cont;
-                                            contractDetail[dataArray[i].custrecord_efx_ms_con].direccion = dataArray[i].custrecord_efx_ms_con_addr;
-                                            contractDetail[dataArray[i].custrecord_efx_ms_con].referencia = dataArray[i].custrecord_efx_ms_con_des;
-                                            if (contractDetail[dataArray[i].custrecord_efx_ms_con].peso === "") {
-                                                contractDetail[dataArray[i].custrecord_efx_ms_con].peso = dataArray[i].custrecord_efx_ms_con_w_cust;
-                                            }
-                                            if (contractDetail[dataArray[i].custrecord_efx_ms_con].peso_total === "") {
-                                                contractDetail[dataArray[i].custrecord_efx_ms_con].peso_total = (dataArray[i].custrecord_efx_ms_con_qty * dataArray[i].custrecord_efx_ms_con_w_cust);
-                                            }
-                                            contractDetail[dataArray[i].custrecord_efx_ms_con].guia = '';
-                                            altI ++;
-                                        }
-                                    }
-                                    var contractDetailKey = Object.keys(contractDetail);
-                                    for (var key in contractDetailKey) {
-                                        dataCSV.push({
-                                            organizacion: contractDetail[contractDetailKey[key]].organizacion,
-                                            no_documento: contractDetail[contractDetailKey[key]].no_documento,
-                                            tercero: contractDetail[contractDetailKey[key]].tercero,
-                                            usuario: contractDetail[contractDetailKey[key]].usuario,
-                                            nombre: contractDetail[contractDetailKey[key]].nombre,
-                                            contacto: contractDetail[contractDetailKey[key]].contacto,
-                                            direccion: contractDetail[contractDetailKey[key]].direccion,
-                                            referencia: contractDetail[contractDetailKey[key]].referencia,
-                                            peso: contractDetail[contractDetailKey[key]].peso,
-                                            peso_total: contractDetail[contractDetailKey[key]].peso_total,
-                                            guia: contractDetail[contractDetailKey[key]].guia
-                                        })
-                                    }
-                                } else {
-                                    var peso = 0, peso_total = 0;
-                                        peso = (dataArray[i].custrecord_efx_ms_con_w / dataArray[i].custrecord_efx_ms_con_qty);
-                                        peso_total = dataArray[i].custrecord_efx_ms_con_w;
-                                    dataCSV.push({
-                                        organizacion: 'CAT',
-                                        no_documento: dataArray[i].prefix + '-' + (i + 1),
-                                        tercero: (dataArray[i].custrecord_efx_ms_con_contact) ? 'Si' : 'No',
-                                        usuario: dataArray[i].custrecord_efx_ms_con_ship_cus,
-                                        nombre: dataArray[i].formula_nombre,
-                                        contacto: dataArray[i].custrecord_efx_ms_con_ship_cont,
-                                        direccion: dataArray[i].custrecord_efx_ms_con_addr,
-                                        referencia: dataArray[i].custrecord_efx_ms_con_des,
-                                        peso: peso,
-                                        peso_total: peso_total,
-                                        guia: ''
-                                    });
-                                }
-                            }
-                            var csvFile = generateExcel3(JSON.stringify(dataCSV));
-                            if (csvFile) {
-                                var urlFile = getFileURL(csvFile);
-                                if (urlFile) {
-                                    redirect.redirect({
-                                        url: urlFile
-                                    });
-                                }
-                            }
-                            break;
-                    }*/
                     log.audit({ title: 'Data 0', details: newArraySort[0] });
                     switch (params.actionsl) {
+                        /** Archivo de Rol */
                         case 'e1':
                             var dataCSV = [];
                             var cantidad_alt = 0;
@@ -404,6 +217,7 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                                 }
                             }
                             break;
+                        /** Archivo de Consolidado */
                         case 'e3':
                             var dataCSV = [];
                             var cantidad_alt = 0;
@@ -489,8 +303,8 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                                     }
                                 } else {
                                     var peso = 0, peso_total = 0;
-                                    peso = (newArraySort[i].custrecord_efx_ms_con_w / newArraySort[i].custrecord_efx_ms_con_qty);
-                                    peso_total = newArraySort[i].custrecord_efx_ms_con_w;
+                                    peso = newArraySort[i].custrecord_efx_ms_con_w; //(newArraySort[i].custrecord_efx_ms_con_w / newArraySort[i].custrecord_efx_ms_con_qty);
+                                    peso_total = newArraySort[i].custrecord_efx_ms_con_w * newArraySort[i].custrecord_efx_ms_con_qty;
                                     dataCSV.push({
                                         'Organizacion': 'CAT',
                                         'No. documento': newArraySort[i].prefix + '-' + (i + 1),
@@ -942,7 +756,8 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                                 name: "custrecord_efx_ms_re_period",
                                 join: "custrecord_efx_ms_dre_re"
                             },
-                            { name: "formulatext", formula: "TO_CHAR({created},'DDMMHHMI')" }
+                            { name: "formulatext", formula: "TO_CHAR({created},'DDMMHHMI')" },
+                            { name: "custrecord_efx_ms_re_year_apply", join: "custrecord_efx_ms_dre_re" }
                         ]
                 });
                 var myPagedResults = customrecord_efx_ms_detail_rol_envSearchObj.runPaged({
@@ -959,10 +774,6 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                             name: "custrecord_efx_ms_con_period",
                             join: "CUSTRECORD_EFX_MS_DRE_DETAIL_CONTRACT"
                         });
-                        /*var month = result.getValue({
-                            name: "formulanumeric",
-                            formula: "TO_NUMBER(TO_CHAR({created},'MM'))"
-                        });*/
                         var month = result.getValue({
                             name: "custrecord_efx_ms_re_period",
                             join: "custrecord_efx_ms_dre_re"
@@ -977,13 +788,15 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                             value: result.getValue({ name: "created" }),
                             type: format.Type.DATE
                         });
+                        var yearApplyRol = result.getValue({ name: "custrecord_efx_ms_re_year_apply", join: "custrecord_efx_ms_dre_re" })
+                        var dateForRol = '01/'+((period<10)?'0'+period:period)+'/'+yearApplyRol;
                         resultData.push({
                             item: itemService,
                             period: period,
                             month: month,
                             detailContract: detailContract,
                             prefix: prefix,
-                            date_rol: new Date(date),
+                            date_rol: new Date(dateForRol),
                             weight: weight
                         });
                     });
@@ -1002,7 +815,6 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                     filters: [],
                     columns:
                         [
-                            // { name: "scriptid", sort: search.Sort.ASC },
                             { name: "custrecord_ms_sent_method" },
                             { name: "custrecord_ms_peso_min" },
                             { name: "custrecord_ms_peso_mx" },
@@ -1039,366 +851,9 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                 log.error('Error on getListaSelloPostal', e);
             }
         }
-        /*function getAllDeailContract(detailID, periodVal, consecutive, prefix, dateRol, detailsObj) {
-            try {
-
-                var details = [];
-                for (var i = 0; i < detailsObj.length; i++) {
-                    details.push(detailsObj[i]);
-                }
-                var detailData = [];
-                var filters = [
-                    ['internalid', search.Operator.ANYOF, details]
-                ];
-                // log.audit({title: 'filtros', details: filters});
-                var searchDetail = search.create({
-                    type: 'customrecord_efx_ms_contract_detail',
-                    filters: filters,
-                    columns: [
-                        {name: 'internalid'},
-                        {name: 'custrecord_efx_ms_con_postmark'},
-                        {name: 'custrecord_efx_ms_con_sd'},
-                        {name: 'custrecord_efx_ms_con_ed'},
-                        {name: 'custrecord_efx_ms_con_contact'},
-                        {name: 'custrecord_efx_ms_con_ship_cont'},
-                        {name: "custrecord_efx_ms_ca_atention", join: "custrecord_efx_ms_con_ship_cont"},
-                        {name: 'custrecord_efx_ms_con_ship_cus'},
-                        {name: 'custrecord_efx_ms_con_addr'},
-                        {name: 'custrecord_efx_ms_con_des'},
-                        {name: 'custrecord_efx_ms_con_qty'},
-                        {name: 'custrecord_efx_ms_con_w'},
-                        {name: 'custrecord_efx_ms_con_unit_w'},
-                        {name: 'custrecord_efx_ms_con_period'},
-                        {name: 'custrecord_efx_ms_con_sm'},
-                        {name: 'custrecord_efx_ms_con_ssi'},
-                        {name: 'custitem_efx_ms_service_weight', join:'custrecord_efx_ms_con_ssi'},
-                        {name: 'custrecord_efx_ms_con_act'},
-                        {name: 'lastmodified'},
-                        {name: 'entityid', join: 'owner'},
-                        {name: 'custrecord_efx_ms_con'},
-                        {
-                            name: "formulatext_cust_addr",
-                            formula: "CASE WHEN {custrecord_efx_ms_con_contact} = 'F' THEN {custrecord_efx_ms_con_ship_cus.billaddress1} || '' || '-' || '' || ' _ ' || '' || '-' || '' || {custrecord_efx_ms_con_ship_cus.billaddress3} || '' || '-' || '' || {custrecord_efx_ms_con_des} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cus.billaddress2} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cus.billzipcode} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cus.billcity} || '' || '-' || '' ||CASE WHEN INSTR({custrecord_efx_ms_con_ship_cus.billstate},'Ciudad de México') > 0 THEN 'CDMX' WHEN INSTR({custrecord_efx_ms_con_ship_cus.billstate},'México (Estado de)') > 0 THEN 'Estado de México' ELSE {custrecord_efx_ms_con_ship_cus.billstate} END || '' || '-' || '' || {custrecord_efx_ms_con_ship_cus.billcountry} WHEN {custrecord_efx_ms_con_contact} = 'T' THEN {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_street} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_number} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_int_number} || '' || '-' || '' || {custrecord_efx_ms_con_des} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_col} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_zip_code} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_city} || '' || '-' || '' ||CASE WHEN INSTR({custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_state},'Mexico City') > 0 THEN 'CDMX' WHEN INSTR({custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_state},'México (Estado de)') > 0 THEN 'Estado de México' ELSE {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_state} END || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_country} END"
-                        },
-                        {
-                            name: "formulatext_nombre",
-                            formula: "CASE WHEN {custrecord_efx_ms_con_contact} = 'F' THEN CASE WHEN {custrecord_efx_ms_con_ship_cus.isperson} = 'F' THEN {custrecord_efx_ms_con_ship_cus} || ' ' || {custrecord_efx_ms_con_ship_cus.companyname} WHEN {custrecord_efx_ms_con_ship_cus.isperson} = 'T' THEN {custrecord_efx_ms_con_ship_cus} || ' ' || {custrecord_efx_ms_con_ship_cus.firstname} || ' ' || {custrecord_efx_ms_con_ship_cus.lastname} END WHEN {custrecord_efx_ms_con_contact} = 'T' THEN {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_atention} END"
-                        }
-                    ]
-                });
-                var itemDataObj = {};
-                var customersObj = {};
-                var idrepeat = [];
-                log.audit({title: 'results', details: searchDetail.runPaged().count});
-                var myPagedResults = searchDetail.runPaged({
-                    pageSize: 1000
-                });
-                var thePageRanges = myPagedResults.pageRanges;
-                for (var i in thePageRanges) {
-                    var thepageData = myPagedResults.fetch({
-                        index: thePageRanges[i].index
-                    });
-                    thepageData.data.forEach(function (result) {
-                        if (periodVal === 4 || periodVal === "4") {
-                            var d = new Date(dateRol);
-                            var weekC = weekCount(d.getFullYear(), d.getMonth() + 1);
-                            var noWeek = null;
-                            var fYear = null;
-                            var monthly = false;
-                            for (var j = 0; j < weekC; j++) {
-                                var weeks_add = 7 * (j);
-                                noWeek = new Date(d.getTime() + (24 * 60 * 60 * 1000 * weeks_add));
-                                var conse = getWeek(new Date(noWeek.getFullYear(), noWeek.getMonth(), noWeek.getDate()));
-                                fYear = noWeek.getFullYear();
-
-                                var id = result.getText({
-                                    name: 'internalid'
-                                });
-                                var custrecord_efx_ms_con_postmark = result.getText({
-                                    name: 'custrecord_efx_ms_con_postmark'
-                                });
-                                var custrecord_efx_ms_con_sd = result.getValue({
-                                    name: 'custrecord_efx_ms_con_sd'
-                                });
-                                var custrecord_efx_ms_con_ed = result.getValue({
-                                    name: 'custrecord_efx_ms_con_ed'
-                                });
-                                var contact = result.getValue({name: 'custrecord_efx_ms_con_contact'});
-                                var custrecord_efx_ms_con_contact = contact;
-                                var custrecord_efx_ms_con_ship_cont = result.getValue({name: "custrecord_efx_ms_ca_atention", join: "custrecord_efx_ms_con_ship_cont"});
-                                var formula_nombre = result.getValue({
-                                    name: "formulatext_nombre",
-                                    formula: "CASE WHEN {custrecord_efx_ms_con_contact} = 'F' THEN CASE WHEN {custrecord_efx_ms_con_ship_cus.isperson} = 'F' THEN {custrecord_efx_ms_con_ship_cus} || ' ' || {custrecord_efx_ms_con_ship_cus.companyname} WHEN {custrecord_efx_ms_con_ship_cus.isperson} = 'T' THEN {custrecord_efx_ms_con_ship_cus} || ' ' || {custrecord_efx_ms_con_ship_cus.firstname} || ' ' || {custrecord_efx_ms_con_ship_cus.lastname} END WHEN {custrecord_efx_ms_con_contact} = 'T' THEN {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_atention} END"
-                                });
-                                var custrecord_efx_ms_con_ship_cus = result.getText({
-                                    name: 'custrecord_efx_ms_con_ship_cus'
-                                });
-                                var con_ship_cus = result.getValue({
-                                    name: 'custrecord_efx_ms_con_ship_cus'
-                                });
-                                if (custrecord_efx_ms_con_contact === false) {
-                                    if (!customersObj.hasOwnProperty(con_ship_cus)) {
-                                        customersObj[con_ship_cus] = {};
-                                        customersObj[con_ship_cus] = {
-                                            id: con_ship_cus,
-                                            customer: custrecord_efx_ms_con_ship_cus
-                                        };
-                                    }
-                                } else {
-                                    idrepeat.push({
-                                        id: con_ship_cus,
-                                        customer: custrecord_efx_ms_con_ship_cus
-                                    })
-                                }
-                                var custrecord_efx_ms_con_addr = result.getValue({
-                                    name: 'custrecord_efx_ms_con_addr'
-                                });
-                                var formulatext_cust_addr = result.getValue({
-                                    name: "formulatext_cust_addr",
-                                    formula: "CASE WHEN {custrecord_efx_ms_con_contact} = 'F' THEN {custrecord_efx_ms_con_ship_cus.billaddress1} || '' || '-' || '' || ' _ ' || '' || '-' || '' || {custrecord_efx_ms_con_ship_cus.billaddress3} || '' || '-' || '' || {custrecord_efx_ms_con_des} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cus.billaddress2} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cus.billzipcode} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cus.billcity} || '' || '-' || '' ||CASE WHEN INSTR({custrecord_efx_ms_con_ship_cus.billstate},'Ciudad de México') > 0 THEN 'CDMX' WHEN INSTR({custrecord_efx_ms_con_ship_cus.billstate},'México (Estado de)') > 0 THEN 'Estado de México' ELSE {custrecord_efx_ms_con_ship_cus.billstate} END || '' || '-' || '' || {custrecord_efx_ms_con_ship_cus.billcountry} WHEN {custrecord_efx_ms_con_contact} = 'T' THEN {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_street} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_number} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_int_number} || '' || '-' || '' || {custrecord_efx_ms_con_des} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_col} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_zip_code} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_city} || '' || '-' || '' ||CASE WHEN INSTR({custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_state},'Mexico City') > 0 THEN 'CDMX' WHEN INSTR({custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_state},'México (Estado de)') > 0 THEN 'Estado de México' ELSE {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_state} END || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_country} END"
-                                });
-                                /!*if (custrecord_efx_ms_con_contact) {
-                                    var related_add = result.getValue({
-                                        name: "custrecord_efx_ms_con_ship_cont"
-                                    });
-                                    custrecord_efx_ms_con_addr = getFullAddress(related_add);
-                                }*!/
-                                var custrecord_efx_ms_con_des = result.getValue({name: 'custrecord_efx_ms_con_des'});
-                                var custrecord_efx_ms_con_qty = result.getValue({name: 'custrecord_efx_ms_con_qty'});
-                                var custrecord_efx_ms_con_w = result.getValue({name: 'custrecord_efx_ms_con_w'});
-                                var custrecord_efx_ms_con_w_cust = result.getValue({name: 'custitem_efx_ms_service_weight', join:'custrecord_efx_ms_con_ssi'});
-                                var custrecord_efx_ms_con_unit_w = result.getText({name: 'custrecord_efx_ms_con_unit_w'});
-                                var custrecord_efx_ms_con_sm = result.getText({name: 'custrecord_efx_ms_con_sm'});
-                                var itemSSI = result.getValue({name: 'custrecord_efx_ms_con_ssi'}).toString();
-                                if (itemDataObj.hasOwnProperty(itemSSI) === false) {
-                                    itemDataObj[itemSSI] = [];
-                                    itemDataObj[itemSSI].push({
-                                        consecutive: conse,
-                                        monthly: monthly,
-                                        yearApply: fYear
-                                    });
-                                } else {
-                                    itemDataObj[itemSSI].push({
-                                        consecutive: conse,
-                                        monthly: monthly,
-                                        yearApply: fYear
-                                    });
-                                }
-                                //var itemData = getInventoryItem(result.getValue({name: 'custrecord_efx_ms_con_ssi'}), period, conse);
-                                var custrecord_efx_ms_con_ssi = '';
-                                var formulatext_month = '';
-                                var custrecord_efx_ms_con_ssi_w = '';
-                                var prefixLocal = prefix;
-                                /!*log.audit('dates', {
-                                    week: new Date(noweek),
-                                    end_date: new Date(format.parse({value:custrecord_efx_ms_con_ed, type: format.Type.DATE}))
-                                });*!/
-                                var custrecord_efx_ms_con_act = result.getValue({name: 'custrecord_efx_ms_con_act'});
-                                var lastmodified = result.getValue({name: 'lastmodified'});
-                                var entityid = result.getValue({name: 'entityid', join: 'owner'});
-                                var period = result.getValue({name: 'custrecord_efx_ms_con_period'});
-                                var custrecord_efx_ms_con = result.getValue({name: 'custrecord_efx_ms_con'});
-                                // if (new Date(noweek) < new Date(format.parse({value:custrecord_efx_ms_con_ed, type: format.Type.DATE}))) {
-                                detailData.push({
-                                    id: id,
-                                    custrecord_efx_ms_con_postmark: custrecord_efx_ms_con_postmark,
-                                    custrecord_efx_ms_con_sd: custrecord_efx_ms_con_sd,
-                                    custrecord_efx_ms_con_ed: custrecord_efx_ms_con_ed,
-                                    custrecord_efx_ms_con_contact: custrecord_efx_ms_con_contact,
-                                    custrecord_efx_ms_con_ship_cont: custrecord_efx_ms_con_ship_cont,
-                                    custrecord_efx_ms_con_ship_cus: custrecord_efx_ms_con_ship_cus,
-                                    custrecord_efx_ms_con_addr: formulatext_cust_addr,
-                                    custrecord_efx_ms_con_des: custrecord_efx_ms_con_des,
-                                    custrecord_efx_ms_con_qty: custrecord_efx_ms_con_qty,
-                                    custrecord_efx_ms_con_w: custrecord_efx_ms_con_w,
-                                    custrecord_efx_ms_con_w_cust: custrecord_efx_ms_con_w_cust,
-                                    custrecord_efx_ms_con_unit_w: custrecord_efx_ms_con_unit_w,
-                                    custrecord_efx_ms_con_sm: custrecord_efx_ms_con_sm,
-                                    custrecord_efx_ms_con_ssi: custrecord_efx_ms_con_ssi,
-                                    custrecord_efx_ms_con_ssi_w: custrecord_efx_ms_con_ssi_w,
-                                    formulatext_month: formulatext_month,
-                                    prefix: prefix,
-                                    custrecord_efx_ms_con_act: custrecord_efx_ms_con_act,
-                                    lastmodified: lastmodified,
-                                    entityid: entityid,
-                                    custrecord_efx_ms_con_period: period,
-                                    dateRol: dateRol,
-                                    custrecord_efx_ms_con: custrecord_efx_ms_con,
-                                    consecutive: conse.toString(),
-                                    yearApply: fYear.toString(),
-                                    itemSSI: itemSSI,
-                                    con_ship_cus: con_ship_cus,
-                                    formula_nombre: formula_nombre
-                                });
-                                // }
-                            }
-                        }
-                        else {
-                            var d2 = new Date(dateRol);
-                            var id = result.getText({
-                                name: 'internalid'
-                            });
-                            var custrecord_efx_ms_con_postmark = result.getText({
-                                name: 'custrecord_efx_ms_con_postmark'
-                            });
-                            var custrecord_efx_ms_con_sd = result.getValue({
-                                name: 'custrecord_efx_ms_con_sd'
-                            });
-                            var custrecord_efx_ms_con_ed = result.getValue({
-                                name: 'custrecord_efx_ms_con_ed'
-                            });
-                            var contact = result.getValue({name: 'custrecord_efx_ms_con_contact'});
-                            var custrecord_efx_ms_con_contact = contact;
-                            var custrecord_efx_ms_con_ship_cont = result.getValue({name: "custrecord_efx_ms_ca_atention", join: "custrecord_efx_ms_con_ship_cont"});
-                            var formula_nombre = result.getValue({
-                                name: "formulatext_nombre",
-                                formula: "CASE WHEN {custrecord_efx_ms_con_contact} = 'F' THEN CASE WHEN {custrecord_efx_ms_con_ship_cus.isperson} = 'F' THEN {custrecord_efx_ms_con_ship_cus} || ' ' || {custrecord_efx_ms_con_ship_cus.companyname} WHEN {custrecord_efx_ms_con_ship_cus.isperson} = 'T' THEN {custrecord_efx_ms_con_ship_cus} || ' ' || {custrecord_efx_ms_con_ship_cus.firstname} || ' ' || {custrecord_efx_ms_con_ship_cus.lastname} END WHEN {custrecord_efx_ms_con_contact} = 'T' THEN {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_atention} END"
-                            });
-                            var custrecord_efx_ms_con_ship_cus = result.getText({
-                                name: 'custrecord_efx_ms_con_ship_cus'
-                            });
-                            var con_ship_cus = result.getValue({
-                                name: 'custrecord_efx_ms_con_ship_cus'
-                            });
-                            if (custrecord_efx_ms_con_contact === false) {
-                                if (!customersObj.hasOwnProperty(con_ship_cus)) {
-                                    customersObj[con_ship_cus] = {};
-                                    customersObj[con_ship_cus] = {
-                                        id: con_ship_cus,
-                                        customer: custrecord_efx_ms_con_ship_cus
-                                    };
-                                }
-                            } else {
-                                idrepeat.push({
-                                    id: con_ship_cus,
-                                    customer: custrecord_efx_ms_con_ship_cus
-                                })
-                            }
-                            var custrecord_efx_ms_con_addr = result.getValue({
-                                name: 'custrecord_efx_ms_con_addr'
-                            });
-                            var formulatext_cust_addr = result.getValue({
-                                name: "formulatext_cust_addr",
-                                formula: "CASE WHEN {custrecord_efx_ms_con_contact} = 'F' THEN {custrecord_efx_ms_con_ship_cus.billaddress1} || '' || '-' || '' || ' _ ' || '' || '-' || '' || {custrecord_efx_ms_con_ship_cus.billaddress3} || '' || '-' || '' || {custrecord_efx_ms_con_des} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cus.billaddress2} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cus.billzipcode} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cus.billcity} || '' || '-' || '' ||CASE WHEN INSTR({custrecord_efx_ms_con_ship_cus.billstate},'Ciudad de México') > 0 THEN 'CDMX' WHEN INSTR({custrecord_efx_ms_con_ship_cus.billstate},'México (Estado de)') > 0 THEN 'Estado de México' ELSE {custrecord_efx_ms_con_ship_cus.billstate} END || '' || '-' || '' || {custrecord_efx_ms_con_ship_cus.billcountry} WHEN {custrecord_efx_ms_con_contact} = 'T' THEN {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_street} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_number} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_int_number} || '' || '-' || '' || {custrecord_efx_ms_con_des} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_col} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_zip_code} || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_city} || '' || '-' || '' ||CASE WHEN INSTR({custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_state},'Mexico City') > 0 THEN 'CDMX' WHEN INSTR({custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_state},'México (Estado de)') > 0 THEN 'Estado de México' ELSE {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_state} END || '' || '-' || '' || {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_country} END"
-                            });
-                            /!*if (custrecord_efx_ms_con_contact) {
-                                var related_add = result.getValue({
-                                    name: "custrecord_efx_ms_con_ship_cont"
-                                });
-                                log.audit('related_add', related_add);
-                                custrecord_efx_ms_con_addr = getFullAddress(related_add);
-                            }*!/
-                            var custrecord_efx_ms_con_des = result.getValue({name: 'custrecord_efx_ms_con_des'});
-                            var custrecord_efx_ms_con_qty = result.getValue({name: 'custrecord_efx_ms_con_qty'});
-                            var custrecord_efx_ms_con_w = result.getValue({name: 'custrecord_efx_ms_con_w'});
-                            var custrecord_efx_ms_con_unit_w = result.getText({name: 'custrecord_efx_ms_con_unit_w'});
-                            var custrecord_efx_ms_con_sm = result.getText({name: 'custrecord_efx_ms_con_sm'});
-                            // var itemData = getInventoryItem(result.getValue({name: 'custrecord_efx_ms_con_ssi'}), period, consecutive);
-                            var itemSSI = result.getValue({name: 'custrecord_efx_ms_con_ssi'}).toString();
-                            monthly = true;
-                            fYear = d2.getFullYear();
-                            if (itemDataObj.hasOwnProperty(itemSSI) === false) {
-                                itemDataObj[itemSSI] = [];
-                                itemDataObj[itemSSI].push({
-                                    consecutive: consecutive,
-                                    monthly: monthly,
-                                    yearApply: fYear
-                                });
-                            } else {
-                                itemDataObj[itemSSI].push({
-                                    consecutive: consecutive,
-                                    monthly: monthly,
-                                    yearApply: fYear
-                                });
-                            }
-                            var custrecord_efx_ms_con_ssi = '';
-                            var formulatext_month = '';
-                            var custrecord_efx_ms_con_ssi_w = '';
-                            var prefixLocal = prefix;
-                            var custrecord_efx_ms_con_act = result.getValue({name: 'custrecord_efx_ms_con_act'});
-                            var lastmodified = result.getValue({name: 'lastmodified'});
-                            var entityid = result.getValue({name: 'entityid', join: 'owner'});
-                            var custrecord_efx_ms_con = result.getValue({name: 'custrecord_efx_ms_con'});
-                            detailData.push({
-                                id: id,
-                                custrecord_efx_ms_con_postmark: custrecord_efx_ms_con_postmark,
-                                custrecord_efx_ms_con_sd: custrecord_efx_ms_con_sd,
-                                custrecord_efx_ms_con_ed: custrecord_efx_ms_con_ed,
-                                custrecord_efx_ms_con_contact: custrecord_efx_ms_con_contact,
-                                custrecord_efx_ms_con_ship_cont: custrecord_efx_ms_con_ship_cont,
-                                custrecord_efx_ms_con_ship_cus: custrecord_efx_ms_con_ship_cus,
-                                custrecord_efx_ms_con_addr: formulatext_cust_addr,
-                                custrecord_efx_ms_con_des: custrecord_efx_ms_con_des,
-                                custrecord_efx_ms_con_qty: custrecord_efx_ms_con_qty,
-                                custrecord_efx_ms_con_w: custrecord_efx_ms_con_w,
-                                custrecord_efx_ms_con_unit_w: custrecord_efx_ms_con_unit_w,
-                                custrecord_efx_ms_con_sm: custrecord_efx_ms_con_sm,
-                                custrecord_efx_ms_con_ssi: custrecord_efx_ms_con_ssi,
-                                custrecord_efx_ms_con_ssi_w: custrecord_efx_ms_con_ssi_w,
-                                formulatext_month: formulatext_month,
-                                prefix: prefix,
-                                custrecord_efx_ms_con_act: custrecord_efx_ms_con_act,
-                                lastmodified: lastmodified,
-                                entityid: entityid,
-                                dateRol: dateRol,
-                                custrecord_efx_ms_con: custrecord_efx_ms_con,
-                                consecutive: consecutive.toString(),
-                                yearApply: fYear.toString(),
-                                itemSSI: itemSSI,
-                                con_ship_cus: con_ship_cus,
-                                formula_nombre: formula_nombre
-                            })
-                        }
-                    });
-                }
-                // log.audit({title: 'itemDataObj', details: itemDataObj});
-                var itemsProcess = getItemSales(itemDataObj);
-                if (itemsProcess) {
-                    var kyIP = Object.keys(itemsProcess);
-                    for (var ip in kyIP) {
-                        for (var a in detailData) {
-                            for (var b in itemsProcess[kyIP[ip]]) {
-                                if (detailData[a].itemSSI === kyIP[ip]) {
-                                    if (detailData[a].yearApply === itemsProcess[kyIP[ip]][b].year) {
-                                        if (detailData[a].consecutive === itemsProcess[kyIP[ip]][b].consecutive) {
-                                            detailData[a].custrecord_efx_ms_con_ssi = itemsProcess[kyIP[ip]][b].itemName;
-                                            detailData[a].custrecord_efx_ms_con_ssi_w = itemsProcess[kyIP[ip]][b].weight;
-                                            detailData[a].formulatext_month = itemsProcess[kyIP[ip]][b].period;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                // log.audit({title:'id repeat', details:idrepeat});
-                var customerProcess = getCustomerExtNumber(customersObj);
-                if (customerProcess) {
-                    var keyCustomer = Object.keys(customerProcess);
-                    for (var cust in keyCustomer) {
-                        for (var a in detailData) {
-                            if (detailData[a].custrecord_efx_ms_con_contact === false) {
-                                if (detailData[a].con_ship_cus === keyCustomer[cust]) {
-                                    detailData[a].custrecord_efx_ms_con_addr = detailData[a].custrecord_efx_ms_con_addr.replace(' _ ', customerProcess[keyCustomer[cust]].streetnum + ' ');
-                                }
-                            }
-                        }
-                    }
-                }
-                // log.audit({title: 'detailData getAllDeailContract', details: detailData});
-                return detailData;
-            } catch (e) {
-                log.error('Error on getAllDeailContract', e);
-            }
-        }*/
 
         function getInventoryItem(itemService, period, consecutive) {
             try {
-                /*log.audit('Data for filter Inventory Item', {
-                    itemService: itemService,
-                    period: period,
-                    consecutive: consecutive
-                });*/
                 var filters = [];
                 var itemResult = {};
                 period = period * 1;
@@ -1435,7 +890,6 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                     start: 0,
                     end: 1
                 });
-                //log.audit('search result inventory', searchResult);
                 for (var i = 0; i < searchResult.length; i++) {
                     var getItem = searchResult[i].getText({ name: "custrecord_efx_ms_inventory_item" });
                     var getPeriod = searchResult[i].getText({ name: "custrecord_efx_ms_period_week" });
@@ -1475,7 +929,6 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                         "AND",
                         ["formulanumeric: TO_NUMBER({custrecord_efx_ms_period_week.custrecord_efx_ms_consecutive})", search.Operator.GREATERTHANOREQUALTO, minimo]*/
                     ];
-                    // log.audit({title: 'filts', details: filts});
                     var searchObj = search.create({
                         type: "customrecord_efx_ms_sus_related",
                         filters: filts,
@@ -1834,7 +1287,6 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                                 var custrecord_efx_ms_con_des = result.getValue({ name: 'custrecord_efx_ms_con_des' });
                                 var custrecord_efx_ms_con_qty = result.getValue({ name: 'custrecord_efx_ms_con_qty' });
                                 var custrecord_efx_ms_con_w = (weight.length !== 0) ? weight : result.getValue({ name: 'custrecord_efx_ms_con_w' });
-                                // var custrecord_efx_ms_con_w = weight;
                                 var custrecord_efx_ms_con_unit_w = result.getText({ name: 'custrecord_efx_ms_con_unit_w' });
                                 var custrecord_efx_ms_con_sm = result.getText({ name: 'custrecord_efx_ms_con_sm' });
                                 var paqueteria = custrecord_efx_ms_con_sm;
@@ -1871,10 +1323,6 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                                 var custrecord_efx_ms_con_ssi_w = '';
                                 var formulatext_month = '';
                                 var custrecord_efx_ms_con_period = period;
-                                /*log.audit('dates', {
-                                    week: new Date(noweek),
-                                    end_date: new Date(format.parse({value:custrecord_efx_ms_con_ed, type: format.Type.DATE}))
-                                });*/
                                 var cpCustom = result.getValue({
                                     name: "formulatext",
                                     formula: "CASE WHEN {custrecord_efx_ms_con_contact} = 'T' THEN {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_zip_code} WHEN {custrecord_efx_ms_con_contact} = 'F' THEN {custrecord_efx_ms_con_ship_cus.billzipcode}  END",
@@ -1893,7 +1341,7 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                                 var peso = (parseFloat(custrecord_efx_ms_con_qty) * parseFloat(custrecord_efx_ms_con_w));
                                 if (weight.length !== 0) {
                                     for (var i = 0; i < listaSello.length; i++) {
-                                        if (peso >= parseFloat(listaSello[i].pesoMin) && peso <= parseFloat(listaSello[i].pesoMax) && (listaSello[i].articulo).indexOf(itemNameSSI) !== -1 && (custrecord_efx_ms_con_postmark.length > 0)) {
+                                        if (peso >= parseFloat(listaSello[i].pesoMin) && peso <= parseFloat(listaSello[i].pesoMax) && (listaSello[i].articulo).indexOf(itemNameSSI) !== -1 && (custrecord_efx_ms_con_postmark === listaSello[i].selloPostal)) {
                                             custrecord_efx_ms_con_sm = listaSello[i].methodSent;
                                             paqueteria = custrecord_efx_ms_con_sm.replace('SEPOMEX ', '');
                                             custrecord_efx_ms_con_postmark = listaSello[i].selloPostal;
@@ -1904,14 +1352,12 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                                 var custrecord_efx_ms_con_act = result.getValue({ name: 'custrecord_efx_ms_con_act' });
                                 var lastmodified = result.getValue({ name: 'lastmodified' });
                                 var entityid = result.getValue({ name: 'entityid', join: 'owner' });
-                                // var period = result.getValue({name: 'custrecord_efx_ms_con_period'});
                                 var custrecord_efx_ms_con = result.getValue({ name: 'custrecord_efx_ms_con' });
 
                                 var formula_nombre = result.getValue({
                                     name: "formulatext_nombre",
                                     formula: "CASE WHEN {custrecord_efx_ms_con_contact} = 'F' THEN CASE WHEN {custrecord_efx_ms_con_ship_cus.isperson} = 'F' THEN {custrecord_efx_ms_con_ship_cus} || ' ' || {custrecord_efx_ms_con_ship_cus.companyname} WHEN {custrecord_efx_ms_con_ship_cus.isperson} = 'T' THEN {custrecord_efx_ms_con_ship_cus} || ' ' || {custrecord_efx_ms_con_ship_cus.firstname} || ' ' || {custrecord_efx_ms_con_ship_cus.lastname} END WHEN {custrecord_efx_ms_con_contact} = 'T' THEN {custrecord_efx_ms_con_ship_cont.custrecord_efx_ms_ca_atention} END"
                                 });
-                                // if (new Date(noweek) < new Date(format.parse({value:custrecord_efx_ms_con_ed, type: format.Type.DATE}))) {
                                 detailData.push({
                                     id: internal_id,
                                     custrecord_efx_ms_con_postmark: custrecord_efx_ms_con_postmark,
@@ -1953,14 +1399,10 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                                     custrecord_efx_ms_con: custrecord_efx_ms_con,
                                     formula_nombre: formula_nombre
                                 });
-                                // }
                             }
                         } else {
                             var d2 = new Date(dateRol);
                             var internal_id = result.getValue({ name: 'internalid' });
-                            // var custrecord_efx_ms_con_postmark = result.getText({
-                            //     name: 'custrecord_efx_ms_con_postmark'
-                            // }) || '';
                             var custrecord_efx_ms_con_postmark = result.getValue({
                                 name: 'formulatext_postmark',
                                 formula:
@@ -2009,7 +1451,6 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                             var custrecord_efx_ms_con_des = result.getValue({ name: 'custrecord_efx_ms_con_des' });
                             var custrecord_efx_ms_con_qty = result.getValue({ name: 'custrecord_efx_ms_con_qty' });
                             var custrecord_efx_ms_con_w = (weight.length !== 0) ? weight : result.getValue({ name: 'custrecord_efx_ms_con_w' });
-                            // var custrecord_efx_ms_con_w = weight;
                             var custrecord_efx_ms_con_unit_w = result.getText({ name: 'custrecord_efx_ms_con_unit_w' });
                             var custrecord_efx_ms_con_sm = result.getText({ name: 'custrecord_efx_ms_con_sm' });
                             var methodSent = custrecord_efx_ms_con_sm;
@@ -2057,11 +1498,10 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                             }
                             var custrecord_efx_ms_con_period = period;
                             var w_ssi = (weight.length !== 0) ? weight : result.getValue({ name: 'custitem_efx_ms_service_weight', join: 'custrecord_efx_ms_con_ssi' });
-                            // var w_ssi = weight;
                             var peso = (parseFloat(custrecord_efx_ms_con_qty) * parseFloat(custrecord_efx_ms_con_w));
                             if (weight.length !== 0) {
                                 for (var i = 0; i < listaSello.length; i++) {
-                                    if (peso >= parseFloat(listaSello[i].pesoMin) && peso <= parseFloat(listaSello[i].pesoMax) && (listaSello[i].articulo).indexOf(itemNameSSI) !== -1 && (custrecord_efx_ms_con_postmark.length > 0)) {
+                                    if (peso >= parseFloat(listaSello[i].pesoMin) && peso <= parseFloat(listaSello[i].pesoMax) && (listaSello[i].articulo).indexOf(itemNameSSI) !== -1 && (custrecord_efx_ms_con_postmark === listaSello[i].selloPostal)) {
                                         custrecord_efx_ms_con_sm = listaSello[i].methodSent;
                                         paqueteria = custrecord_efx_ms_con_sm.replace('SEPOMEX ', '');
                                         custrecord_efx_ms_con_postmark = listaSello[i].selloPostal;
@@ -2072,7 +1512,6 @@ define(['N/redirect', 'N/search', 'N/log', 'N/file', 'N/url', 'N/record', 'N/for
                             var custrecord_efx_ms_con_act = result.getValue({ name: 'custrecord_efx_ms_con_act' });
                             var lastmodified = result.getValue({ name: 'lastmodified' });
                             var entityid = result.getValue({ name: 'entityid', join: 'owner' });
-                            // var period = result.getValue({name: 'custrecord_efx_ms_con_period'});
                             var custrecord_efx_ms_con = result.getValue({ name: 'custrecord_efx_ms_con' });
                             var formula_nombre = result.getValue({
                                 name: "formulatext_nombre",
